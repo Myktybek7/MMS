@@ -1,4 +1,4 @@
-package alatoo.edu.medicalmanagementsystem.entity;
+package alatoo.edu.medicalmanagementsystem.entities;
 
 import jakarta.persistence.*;
 
