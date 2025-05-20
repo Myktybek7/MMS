@@ -24,7 +24,7 @@ public class DepartmentController {
     public String showDepartments(Model model) {
         List<Department> departments = departmentService.getAllDepartments();
         model.addAttribute("departments", departments);
-        return "departments/list"; // src/main/resources/templates/departments/list.html
+        return "departments/list";
     }
 
     @GetMapping("/search")
