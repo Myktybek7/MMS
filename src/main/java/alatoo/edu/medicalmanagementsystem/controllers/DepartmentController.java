@@ -5,6 +5,7 @@ import alatoo.edu.medicalmanagementsystem.services.DepartmentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -33,4 +34,13 @@ public class DepartmentController {
         model.addAttribute("departments", result);
         return "departments/list";
     }
+
+    @GetMapping("/{id}")
+    public String showDepartmentDetails(@PathVariable("id") Long id, Model model) {
+        Department department = departmentService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid department ID: " + id));
+        model.addAttribute("department", department);
+        return "departments/detail";
+    }
+
 }
