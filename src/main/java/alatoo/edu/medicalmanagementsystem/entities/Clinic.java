@@ -13,8 +13,11 @@ public class Clinic {
 
     private String name;
 
+    private String address;
+
     @OneToOne
     private User user;
+
 
     @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL)
     private List<Department> departments;
@@ -22,8 +25,17 @@ public class Clinic {
     public Clinic() {
     }
 
-    public Clinic(String name, User user, List<Department> departments) {
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Clinic(String name, String address, User user, List<Department> departments) {
         this.name = name;
+        this.address = address;
         this.user = user;
         this.departments = departments;
     }
