@@ -5,11 +5,9 @@ import alatoo.edu.medicalmanagementsystem.repositories.AppointmentRepository;
 import alatoo.edu.medicalmanagementsystem.services.AppointmentService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
+
     private final AppointmentRepository appointmentRepository;
 
     public AppointmentServiceImpl(AppointmentRepository appointmentRepository) {
@@ -17,18 +15,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<Appointment> getAllAppointments() {
-        return appointmentRepository.findAll();
-    }
-
-    @Override
-    public Optional<Appointment> findById(Long id) {
-        return appointmentRepository.findById(id);
-    }
-
-    @Override
     public Appointment saveAppointment(Appointment appointment) {
         return appointmentRepository.save(appointment);
     }
 }
-

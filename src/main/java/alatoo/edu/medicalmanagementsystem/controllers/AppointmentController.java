@@ -1,47 +1,45 @@
 package alatoo.edu.medicalmanagementsystem.controllers;
 
 import alatoo.edu.medicalmanagementsystem.entities.Appointment;
+import alatoo.edu.medicalmanagementsystem.entities.Department;
 import alatoo.edu.medicalmanagementsystem.services.AppointmentService;
-import alatoo.edu.medicalmanagementsystem.services.DoctorService;
-import alatoo.edu.medicalmanagementsystem.services.UserService;
+import alatoo.edu.medicalmanagementsystem.services.DepartmentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
 
 @Controller
 @RequestMapping("/appointments")
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
-    private final UserService userService;
-    private final DoctorService doctorService;
+    private final DepartmentService departmentService;
 
-    public AppointmentController(AppointmentService appointmentService, UserService userService, DoctorService doctorService) {
+    public AppointmentController(AppointmentService appointmentService, DepartmentService departmentService) {
         this.appointmentService = appointmentService;
-        this.userService = userService;
-        this.doctorService = doctorService;
+        this.departmentService = departmentService;
     }
 
-    @GetMapping("/new")
-    public String showAppointmentForm(Model model) {
+    @GetMapping("/book")
+    public String showBookingFormByParam(@RequestParam Long departmentId, Model model) {
+        Department department = departmentService.findById(departmentId).orElseThrow();
+        model.addAttribute("department", department);
         model.addAttribute("appointment", new Appointment());
-        model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("doctors", doctorService.getAllDoctors());
-        return "appointments/form"; // templates/appointments/form.html
+        return "appointments/book";
     }
 
-    @PostMapping("/save")
-    public String saveAppointment(@ModelAttribute Appointment appointment) {
+
+    @PostMapping("/book/{departmentId}")
+    public String submitBooking(@PathVariable Long departmentId, @ModelAttribute Appointment appointment) {
+        Department department = departmentService.findById(departmentId).orElseThrow();
+        appointment.setDepartment(department);
         appointmentService.saveAppointment(appointment);
-        return "redirect:/appointments/list";
+        return "redirect:/appointments/thank-you";
     }
 
-    @GetMapping("/list")
-    public String listAppointments(Model model) {
-        model.addAttribute("appointments", appointmentService.getAllAppointments());
-        return "appointments/list";
+    @GetMapping("/thank-you")
+    public String thankYouPage() {
+        return "appointments/thank-you";
     }
 }

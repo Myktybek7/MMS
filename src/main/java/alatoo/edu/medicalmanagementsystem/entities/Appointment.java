@@ -1,7 +1,6 @@
 package alatoo.edu.medicalmanagementsystem.entities;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,52 +10,26 @@ public class Appointment {
     private Long id;
 
     private LocalDateTime dateTime;
-
-    @ManyToOne
-    private User client;
+    private String clientName;
+    private String clientContact;
 
     @ManyToOne
     private Department department;
 
-    public Appointment() {
-    }
+    public Appointment() {}
 
-    public Appointment(LocalDateTime dateTime, User client, Department department) {
-        this.dateTime = dateTime;
-        this.client = client;
-        this.department = department;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getId() {
-        return id;
-    }
+    public LocalDateTime getDateTime() { return dateTime; }
+    public void setDateTime(LocalDateTime dateTime) { this.dateTime = dateTime; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getClientName() { return clientName; }
+    public void setClientName(String clientName) { this.clientName = clientName; }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
+    public String getClientContact() { return clientContact; }
+    public void setClientContact(String clientContact) { this.clientContact = clientContact; }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public User getClient() {
-        return client;
-    }
-
-    public void setClient(User client) {
-        this.client = client;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
+    public Department getDepartment() { return department; }
+    public void setDepartment(Department department) { this.department = department; }
 }
-

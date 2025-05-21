@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Doctors List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+<div class="container mx-auto px-4 py-10">
+
+    <button onclick="window.location.href='/home'"
+            class="mb-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none">
+        ← Back to Home
+    </button>
+
+    <h1 class="text-3xl font-bold text-center text-blue-600 mb-8">Available Doctors</h1>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <a th:each="doctor : ${doctors}"
+           th:href="@{/doctors/{id}(id=${doctor.id})}"
+           class="block bg-white p-6 rounded-xl shadow hover:shadow-lg transition hover:scale-[1.01]">
+
+            <div class="mb-4">
+                <img th:src="@{${doctor.imageUrl}}"
+                     alt="Doctor Photo"
+                     class="rounded-full w-32 h-32 object-cover mx-auto" />
+            </div>
+
+            <h2 class="text-xl font-semibold text-blue-800 mb-1" th:text="${doctor.fullName}">Full Name</h2>
+            <p class="text-gray-700 italic mb-2" th:text="${doctor.position}">Position</p>
+            <p class="text-gray-700" th:text="${doctor.department.name}">Department</p>
+        </a>
+    </div>
+</div>
+</body>
+</html>

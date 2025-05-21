@@ -19,10 +19,10 @@ public class DoctorController {
         this.doctorService = doctorService;
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public String listDoctors(Model model) {
         model.addAttribute("doctors", doctorService.getAllDoctors());
-        return "doctors/list"; // templates/doctors/list.html
+        return "doctors/list";
     }
 
     @GetMapping("/new")

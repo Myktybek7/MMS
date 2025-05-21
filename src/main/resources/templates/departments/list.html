@@ -8,15 +8,27 @@
 </head>
 <body class="bg-gray-50 min-h-screen">
 <div class="container mx-auto px-4 py-10">
+
+    <button
+            onclick="window.location.href='/home'"
+            class="mb-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none"
+            type="button">
+        ← Back
+    </button>
+
     <h1 class="text-3xl font-bold text-center text-blue-600 mb-8">Medical Departments</h1>
 
-    <form th:action="@{/departments/search}" method="get" class="flex justify-center mb-6">
+    <form th:action="@{/departments/search}" method="get" class="flex justify-center mb-6 space-x-2">
         <input type="text" name="keyword" placeholder="Type symptom or department name..."
                class="px-4 py-2 w-1/2 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" />
         <button type="submit"
                 class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-r-lg hover:bg-blue-700">
             Search
         </button>
+        <a href="/departments"
+           class="px-6 py-2 bg-gray-300 text-gray-800 font-semibold rounded-lg hover:bg-gray-400 flex items-center justify-center">
+            Show All
+        </a>
     </form>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
