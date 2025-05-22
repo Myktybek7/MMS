@@ -2,22 +2,27 @@ package alatoo.edu.medicalmanagementsystem.config;
 
 import alatoo.edu.medicalmanagementsystem.entities.Clinic;
 import alatoo.edu.medicalmanagementsystem.entities.Department;
+import alatoo.edu.medicalmanagementsystem.entities.Doctor;
 import alatoo.edu.medicalmanagementsystem.services.ClinicService;
 import alatoo.edu.medicalmanagementsystem.services.DepartmentService;
+import alatoo.edu.medicalmanagementsystem.services.DoctorService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
+import java.util.List;
 
 @Component
 public class DataInitializer {
 
     private final DepartmentService departmentService;
     private final ClinicService clinicService;
+    private final DoctorService doctorService;
 
-    public DataInitializer(DepartmentService departmentService, ClinicService clinicService) {
+    public DataInitializer(DepartmentService departmentService, ClinicService clinicService, DoctorService doctorService) {
         this.departmentService = departmentService;
         this.clinicService = clinicService;
+        this.doctorService = doctorService;
     }
 
     @PostConstruct
@@ -154,9 +159,93 @@ public class DataInitializer {
                 Collections.emptyList()
         ));
 
-
         System.out.println(">>> Clinic and Department SAVED <<<");
+
+
+
+
+        List<Department> departments = departmentService.getAllDepartments();
+
+        doctorService.saveDoctor(new Doctor(
+                "Dr. Aibek Toktogulov",
+                "Ophthalmologist",
+                "Expert in vision correction and eye diseases.",
+                "/doctors/first.jpg",
+                departments.get(0)
+        ));
+
+        doctorService.saveDoctor(new Doctor(
+                "Dr. Nurbek Erkinbaev",
+                "Ophthalmologist",
+                "Specialist in pediatric eye care.",
+                "/doctors/second.jpg",
+                departments.get(0)
+        ));
+
+        doctorService.saveDoctor(new Doctor(
+                "Dr. Bakytbek K.",
+                "Dentist",
+                "Heart and blood vessel specialist.",
+                "/doctors/third.jpg",
+                departments.get(1)
+        ));
+
+        doctorService.saveDoctor(new Doctor(
+                "Dr. Gulmira T.",
+                "Neurologist",
+                "Expert in brain and nervous system disorders.",
+                "/doctors/fourth.webp",
+                departments.get(4)
+        ));
+
+        doctorService.saveDoctor(new Doctor(
+                "Dr. Emil N.",
+                "Dermatologist",
+                "Treats skin conditions with modern techniques.",
+                "/doctors/fifth.jpeg",
+                departments.get(2)
+        ));
+
+        doctorService.saveDoctor(new Doctor(
+                "Dr. Alina S.",
+                "Pediatrician",
+                "Cares for children's health and development.",
+                "/doctors/sixth.webp",
+                departments.get(5)
+        ));
+
+        doctorService.saveDoctor(new Doctor(
+                "Dr. Timur D.",
+                "Dentist",
+                "Performs dental surgery and hygiene treatment.",
+                "/doctors/eight.jpg",
+                departments.get(1)
+        ));
+
+        doctorService.saveDoctor(new Doctor(
+                "Dr. Aizhan B.",
+                "Gynecologist",
+                "Focus on women's health and pregnancy.",
+                "/doctors/seventh.jpeg",
+                departments.get(7)
+        ));
+
+        doctorService.saveDoctor(new Doctor(
+                "Dr. Kanat S.",
+                "ENT Specialist",
+                "Treats ear, nose and throat conditions.",
+                "/doctors/tenth.jpg",
+                departments.get(8)
+        ));
+
+        doctorService.saveDoctor(new Doctor(
+                "Dr. Madina K.",
+                "Cardiologist",
+                "Expert in cardiovascular diseases.",
+                "/doctors/nineth.jpeg",
+                departments.get(3)
+        ));
+
+        System.out.println(">>> Doctors SAVED <<<");
     }
-
-
 }

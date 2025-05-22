@@ -16,7 +16,7 @@
 
     <div class="bg-white rounded-xl shadow p-6">
         <div class="flex flex-col items-center">
-            <img th:src="@{${doctor.imageUrl}}"
+            <img th:src="@{/doctors/{filename}(filename=${doctor.imageUrl})}"
                  alt="Doctor Photo"
                  class="rounded-full w-40 h-40 object-cover mb-4" />
             <h1 class="text-3xl font-bold text-blue-700 mb-2" th:text="${doctor.fullName}">Full Name</h1>

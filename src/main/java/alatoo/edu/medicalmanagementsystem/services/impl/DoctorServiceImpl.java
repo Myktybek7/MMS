@@ -17,13 +17,13 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public List<Doctor> getAllDoctors() {
-        return doctorRepository.findAll();
+    public Doctor getDoctorById(Long id) {
+        return doctorRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Optional<Doctor> findById(Long id) {
-        return doctorRepository.findById(id);
+    public List<Doctor> getAllDoctors() {
+        return doctorRepository.findAll();
     }
 
     @Override

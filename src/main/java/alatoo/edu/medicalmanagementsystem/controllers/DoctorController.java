@@ -4,10 +4,7 @@ import alatoo.edu.medicalmanagementsystem.entities.Doctor;
 import alatoo.edu.medicalmanagementsystem.services.DoctorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/doctors")
@@ -19,21 +16,21 @@ public class DoctorController {
         this.doctorService = doctorService;
     }
 
+    // Метод для списка врачей
     @GetMapping("/list")
     public String listDoctors(Model model) {
         model.addAttribute("doctors", doctorService.getAllDoctors());
         return "doctors/list";
     }
 
-    @GetMapping("/new")
-    public String showForm(Model model) {
-        model.addAttribute("doctor", new Doctor());
-        return "doctors/form";
-    }
-
-    @PostMapping("/save")
-    public String saveDoctor(@ModelAttribute Doctor doctor) {
-        doctorService.saveDoctor(doctor);
-        return "redirect:/doctors";
+    @GetMapping("/view/{id}")
+    public String doctorDetails(@PathVariable Long id, Model model) {
+        Doctor doctor = doctorService.getDoctorById(id);
+        if (doctor == null) {
+            return "redirect:/doctors/list";
+        }
+        model.addAttribute("doctor", doctor);
+        return "doctors/details";
     }
 }
+

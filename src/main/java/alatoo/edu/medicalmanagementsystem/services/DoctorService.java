@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface DoctorService {
     List<Doctor> getAllDoctors();
-    Optional<Doctor> findById(Long id);
     Doctor saveDoctor(Doctor doctor);
+    Doctor getDoctorById(Long id);
+
 }
