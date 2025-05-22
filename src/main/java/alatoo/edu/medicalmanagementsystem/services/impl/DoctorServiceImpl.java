@@ -22,8 +22,23 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public Optional<Doctor> findById(Long id) {
+        return doctorRepository.findById(id);
+    }
+
+    @Override
     public List<Doctor> getAllDoctors() {
         return doctorRepository.findAll();
+    }
+
+    @Override
+    public List<Doctor> getDoctorsByDepartmentId(Long departmentId) {
+        return doctorRepository.findByDepartmentId(departmentId);
+    }
+
+    @Override
+    public List<Doctor> findByDepartmentId(Long departmentId) {
+        return doctorRepository.findByDepartmentId(departmentId);
     }
 
     @Override

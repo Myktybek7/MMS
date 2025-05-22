@@ -9,5 +9,10 @@ public interface DoctorService {
     List<Doctor> getAllDoctors();
     Doctor saveDoctor(Doctor doctor);
     Doctor getDoctorById(Long id);
+    List<Doctor> getDoctorsByDepartmentId(Long departmentId);
+
+    List<Doctor> findByDepartmentId(Long departmentId);
+
+    Optional<Doctor> findById(Long id);
 
 }
