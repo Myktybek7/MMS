@@ -9,7 +9,14 @@
 <body class="bg-white min-h-screen flex items-center justify-center">
 <div class="max-w-lg p-10 rounded-lg shadow-md bg-blue-600 text-white text-center">
     <h1 class="text-4xl font-bold mb-4">Thank you for your booking!</h1>
-    <p class="mb-6 text-lg">We will contact you soon.</p>
+
+    <p class="mb-2 text-lg">
+        You have successfully booked an appointment with:
+    </p>
+
+    <p class="mb-1 text-xl font-semibold" th:text="${appointment.doctor.fullName}">Doctor Name</p>
+    <p class="mb-6 text-md" th:text="${#temporals.format(appointment.dateTime, 'dd MMMM yyyy, HH:mm')}">Date and time</p>
+
     <a th:href="@{/departments}"
        class="inline-block bg-white text-blue-600 px-6 py-3 rounded hover:bg-gray-100 transition">
         Back to Departments

@@ -41,20 +41,23 @@ public class AppointmentController {
 
     @PostMapping("/book/{departmentId}")
     public String submitBooking(@PathVariable Long departmentId,
-                                @RequestParam Long doctorId,
                                 @ModelAttribute Appointment appointment) {
         Department department = departmentService.findById(departmentId).orElseThrow();
+        Long doctorId = appointment.getDoctor().getId();
         Doctor doctor = doctorService.findById(doctorId).orElseThrow();
 
         appointment.setDepartment(department);
         appointment.setDoctor(doctor);
 
-        appointmentService.saveAppointment(appointment);
-        return "redirect:/appointments/thank-you";
+        Appointment savedAppointment = appointmentService.saveAppointment(appointment);
+
+        return "redirect:/appointments/thank-you?appointmentId=" + savedAppointment.getId();
     }
 
     @GetMapping("/thank-you")
-    public String thankYouPage() {
+    public String thankYouPage(@RequestParam Long appointmentId, Model model) {
+        Appointment appointment = appointmentService.findById(appointmentId).orElseThrow();
+        model.addAttribute("appointment", appointment);
         return "appointments/thank-you";
     }
 }

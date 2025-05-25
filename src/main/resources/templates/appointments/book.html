@@ -1,48 +1,59 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Запись на прием</title>
+    <meta charset="UTF-8">
+    <title>Book an Appointment</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 flex justify-center items-center min-h-screen">
 <div class="bg-white p-6 rounded shadow w-full max-w-md">
-    <h2 class="text-2xl font-bold mb-4 text-blue-600" th:text="'Запись на прием в отдел: ' + ${department.name}"></h2>
+
+    <button
+            onclick="window.location.href='/departments'"
+            class="mb-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none"
+            type="button">
+        ← Back
+    </button>
+
+
+    <h2 class="text-2xl font-bold mb-4 text-blue-600"
+        th:text="'Booking an appointment in department: ' + ${department.name}"></h2>
+
 
     <form th:action="@{'/appointments/book/' + ${department.id}}" method="post" th:object="${appointment}" class="space-y-4">
 
         <label>
-            <span class="block text-gray-700">Выберите доктора:</span>
+            <span class="block text-gray-700">Select a doctor:</span>
             <select th:field="*{doctor.id}" required
                     class="mt-1 block w-full border rounded px-3 py-2">
-                <option value="" disabled selected>-- Выберите доктора --</option>
+                <option value="" disabled selected>-- Choose a doctor --</option>
                 <option th:each="doc : ${doctors}"
                         th:value="${doc.id}"
                         th:text="${doc.fullName + ' (' + doc.position + ')'}">
                 </option>
-
             </select>
         </label>
 
         <label>
-            <span class="block text-gray-700">Дата и время:</span>
+            <span class="block text-gray-700">Date and time:</span>
             <input type="datetime-local" th:field="*{dateTime}" required
                    class="mt-1 block w-full border rounded px-3 py-2" />
         </label>
 
         <label>
-            <span class="block text-gray-700">Ваше имя:</span>
+            <span class="block text-gray-700">Your name:</span>
             <input type="text" th:field="*{clientName}" required
                    class="mt-1 block w-full border rounded px-3 py-2" />
         </label>
 
         <label>
-            <span class="block text-gray-700">Телефон или email:</span>
+            <span class="block text-gray-700">Phone or email:</span>
             <input type="text" th:field="*{clientContact}" required
                    class="mt-1 block w-full border rounded px-3 py-2" />
         </label>
 
         <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-            Записаться
+            Book Appointment
         </button>
     </form>
 </div>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+<div class="bg-white p-6 rounded shadow w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-4 text-blue-600">Login</h2>
+
+    <form th:action="@{/login}" method="post" class="space-y-4">
+        <label>
+            <span class="block text-gray-700">Username</span>
+            <input type="text" name="username" required
+                   class="mt-1 block w-full border rounded px-3 py-2"/>
+        </label>
+
+        <label>
+            <span class="block text-gray-700">Password</span>
+            <input type="password" name="password" required
+                   class="mt-1 block w-full border rounded px-3 py-2"/>
+        </label>
+
+        <label>
+            <span class="block text-gray-700">Role</span>
+            <select name="role" required
+                    class="mt-1 block w-full border rounded px-3 py-2">
+                <option value="" disabled selected>Select role</option>
+                <option value="CLIENT">Client</option>
+                <option value="DOCTOR">Doctor</option>
+            </select>
+        </label>
+
+        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+            Login
+        </button>
+    </form>
+</div>
+</body>
+</html>
