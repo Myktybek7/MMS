@@ -48,11 +48,10 @@ public class LoginController {
             return "login";
         }
 
-        // Перенаправляем в зависимости от роли
         if (role.equalsIgnoreCase("CLIENT")) {
-            return "redirect:/client/home";  // главная страница клиента
+            return "redirect:/client/home";
         } else if (role.equalsIgnoreCase("DOCTOR")) {
-            return "redirect:/doctor/home";  // страница доктора (создадим позже)
+            return "redirect:/doctor/home";
         } else {
             model.addAttribute("error", "Unknown role");
             return "login";
