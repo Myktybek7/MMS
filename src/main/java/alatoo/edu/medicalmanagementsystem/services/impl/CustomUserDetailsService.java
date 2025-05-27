@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -28,13 +29,13 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByName(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRole());
+        String roleFromDb = user.getRole();
+        String roleWithPrefix = roleFromDb.startsWith("ROLE_") ? roleFromDb : "ROLE_" + roleFromDb;
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getName(),
-                user.getPassword(),
-                Collections.singleton(authority)
-        );
+        List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(roleWithPrefix));
+
+        return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), authorities);
     }
+
 }
 

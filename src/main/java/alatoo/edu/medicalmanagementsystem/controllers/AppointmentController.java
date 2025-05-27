@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Controller
 @RequestMapping("/appointments")
@@ -28,23 +29,30 @@ public class AppointmentController {
         this.doctorService = doctorService;
     }
 
+
     @GetMapping("/book")
     public String showBookingFormByParam(@RequestParam Long departmentId, Model model) {
-        Department department = departmentService.findById(departmentId).orElseThrow();
+        Department department = departmentService.findById(departmentId)
+                .orElseThrow(() -> new NoSuchElementException("Department not found with id: " + departmentId));
         List<Doctor> doctors = doctorService.findByDepartmentId(departmentId);
 
         model.addAttribute("department", department);
         model.addAttribute("doctors", doctors);
         model.addAttribute("appointment", new Appointment());
+
         return "appointments/book";
     }
+
 
     @PostMapping("/book/{departmentId}")
     public String submitBooking(@PathVariable Long departmentId,
                                 @ModelAttribute Appointment appointment) {
-        Department department = departmentService.findById(departmentId).orElseThrow();
+        Department department = departmentService.findById(departmentId)
+                .orElseThrow(() -> new NoSuchElementException("Department not found with id: " + departmentId));
+
         Long doctorId = appointment.getDoctor().getId();
-        Doctor doctor = doctorService.findById(doctorId).orElseThrow();
+        Doctor doctor = doctorService.findById(doctorId)
+                .orElseThrow(() -> new NoSuchElementException("Doctor not found with id: " + doctorId));
 
         appointment.setDepartment(department);
         appointment.setDoctor(doctor);
@@ -56,7 +64,9 @@ public class AppointmentController {
 
     @GetMapping("/thank-you")
     public String thankYouPage(@RequestParam Long appointmentId, Model model) {
-        Appointment appointment = appointmentService.findById(appointmentId).orElseThrow();
+        Appointment appointment = appointmentService.findById(appointmentId)
+                .orElseThrow(() -> new NoSuchElementException("Appointment not found with id: " + appointmentId));
+
         model.addAttribute("appointment", appointment);
         return "appointments/thank-you";
     }
